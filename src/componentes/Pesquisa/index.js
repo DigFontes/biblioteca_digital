@@ -1,29 +1,12 @@
 import Input from "../Input";
-import styled from "styled-components";
+
 import { useState } from "react";
 import { livros } from "./dadosPesquisa";
-
-const PesquisaContainer = styled.section`
-  background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
-  color: #fff;
-  text-align: center;
-  padding: 85px 0;
-  height: 270px;
-  width: 100%;
-`;
-
-const Titulo = styled.h2`
-  color: #fff;
-  font-size: 36px;
-  text-align: center;
-  width: 100%;
-`;
-
-const SubTitulo = styled.h3`
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 40px;
-`;
+import { PesquisaContainer } from "./PesquisaContainer";
+import { LivrosContainer } from "./LivrosContainer";
+import { LivroPesquisa } from "./Livro";
+import { TituloPesquisa } from "./Titulo";
+import { SubTituloPesquisa } from "./SubTitulo";
 
 function Persquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState([]);
@@ -39,18 +22,24 @@ function Persquisa() {
 
   return (
     <PesquisaContainer>
-      <Titulo>Já sabe por onde começar?</Titulo>
-      <SubTitulo>Pesquise pelo seu livro</SubTitulo>
+      <TituloPesquisa>Já sabe por onde começar?</TituloPesquisa>
+      <SubTituloPesquisa>Pesquise pelo seu livro</SubTituloPesquisa>
       <Input
         placeholder="Escreva sua próxima leitura"
         onKeyDown={handleKeyDown}
       />
-      {livrosPesquisados.map((livro) => (
-        <div>
-          <p>{livro.nome}</p>
-          <img src={livro.src} alt={`Capa do Livro ${livro.nome}`} />
-        </div>
-      ))}
+      <LivrosContainer>
+        {livrosPesquisados.map((livro) => (
+          <LivroPesquisa key={livro.nome}>
+            <p>{livro.nome}</p>
+            <img
+              src={livro.src}
+              alt={`Capa do Livro ${livro.nome}`}
+              style={{ width: "100%", height: "auto" }}
+            />
+          </LivroPesquisa>
+        ))}
+      </LivrosContainer>
     </PesquisaContainer>
   );
 }
